@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+import requests
+import json
+import tweepy
 import time
 import datetime
 from time import sleep
