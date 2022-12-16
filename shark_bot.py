@@ -40,9 +40,9 @@ def price_data():
 """this would print out the value of the current bitcion price"""
 def checkpercent():
  if num <= 25 :
-  return '#₿itcoin ▼\n\n'
+  return '₿itcoin ▼\n\n'
  elif num >= 25 : 
-  return  '#₿itcoin ▲\n\n' 
+  return  '#Bitcoin ▲\n\n' 
  elif num == 50 : 
   return '₿itcoin ∞\n\n'
  elif num >=50 :
