@@ -44,7 +44,7 @@ def checkpercent():
  elif num >= 25 : 
   return  '#₿itcoin ▲\n\n' 
  elif num == 50 : 
-  return '#₿itcoin ∞\n\n'
+  return '₿itcoin ∞\n\n'
  elif num >=50 :
   return  '#₿itcoin ▲\n\n'
 
