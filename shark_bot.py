@@ -44,9 +44,9 @@ def price_data():
  elif num >= 25 : 
   return  '#bitcoin ↑\n\n' 
  elif num == 50 : 
-  return '₿itcoin ∞ \n\n'
+  return '₿itcoin ∞\n\n'
  elif num >=50 :
-  return  '#bitcoin ↑ \n\n'
+  return  '#bitcoin ↑\n\n'
 
 """this is to printout the first part of the tweet, the top half""" 
     
