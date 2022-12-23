@@ -275,6 +275,4 @@ while True:
         api = tweepy.API(auth)
         api.update_status (stat())
         # sleep to avoid running the function again in the next loop
-        time.sleep(300)
-        
-stat()
+        time.sleep(120)
