@@ -6,9 +6,7 @@ import time
 import datetime
 from time import sleep
 
-
 from tweepy import auth
-
 
 def btc():
     url = "https://api.coinbase.com/v2/prices/spot?currency=USD"
@@ -38,15 +36,15 @@ def price_data():
     return ratioD 
 
 """this would print out the value of the current bitcion price"""
- def checkpercent():
- if num <= 25 :
-  return '#bitcoin ↓\n\n'
- elif num >= 25 : 
-  return  '#bitcoin ↑\n\n' 
- elif num == 50 : 
-  return '₿itcoin ∞\n\n'
- elif num >=50 :
-  return  '#bitcoin ↑\n\n'
+def checkpercent():
+    if num <= 25 :
+    return '#bitcoin ↓\n\n'
+    elif num >= 25 : 
+    return  '#bitcoin ↑\n\n' 
+    elif num == 50 : 
+    return '₿itcoin ∞\n\n'
+    elif num >=50 :
+    return  '#bitcoin ↑\n\n'
 
 """this is to printout the first part of the tweet, the top half""" 
     
