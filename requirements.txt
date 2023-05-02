@@ -5,4 +5,4 @@ certifi==2019.9.11
 tweepy==4.14.0
 flask==1.1.1
 apscheduler==3.6.3
-python== 3.11
+python==3.10.6
