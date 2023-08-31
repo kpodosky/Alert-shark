@@ -5,6 +5,7 @@ import tweepy
 import time
 import datetime
 from time import sleep
+from keys import *
 
 from tweepy import auth
 
@@ -33,20 +34,22 @@ bit_current = float(btc())
 num= bit_current/bit_2017*100
 
 def price_data():
-    ratio = eth()/btc()
-    ratioD = ("{0:.2f}".format(ratio))
-    return ratioD 
+   ratio = eth()/btc()
+   ratioD = ("{0:.2f}".format(ratio))
+   return ratioD 
+
+
 
 """this would print out the value of the current bitcion price"""
 def checkpercent():
  if num <= 25 :
-  return '#bitcoin ↓\n\n'
+  return '₿itcoin ∞ ↓\n\n'
  elif num >= 25 : 
-  return  '#bitcoin ↑\n\n' 
+  return  '₿itcoin ∞ ↑\n\n' 
  elif num == 50 : 
   return '₿itcoin ∞ \n\n'
  elif num >=50 :
-  return  '#bitcoin ↑ \n\n'
+  return  '₿itcoin ∞ ↑ \n\n'
 
 """this is to printout the first part of the tweet, the top half""" 
     
@@ -258,25 +261,15 @@ def bottom():
     
 def stat ():
    return checkpercent() + bitcoinData() + bottom()
-
 #login to the bot via Tweepy
-auth = tweepy.OAuthHandler("ohhDfWrezyQXuEwslgw7Jhr9H", "q3Z0LzTprwPbwAntUmd6pS7150Eb8MFrEqPpuaTgiGx7aAiarQ")
-auth.set_access_token("1126776989266792448-zcHyNmqUzHDt4VhAbpd87ZlnTd35qN", "7nd1ngRXZRhHdecCxZwT8yI3ZU0c8GuTcpn7bXrCFfagi")
-
-
-start_time = datetime.datetime.now()
-interval = start_time + datetime.timedelta(minutes=30)
-
-# dynamically create the interval times
-tweet_times = [start_time.minute, interval.minute]
-
-while True:
-    current_time = datetime.datetime.now()
-    if current_time.minute in tweet_times:
-        # your function that tweets
-        api = tweepy.API(auth)
-
-        api.update_status (stat())
-        # sleep to avoid running the function again in the next loop
-        time.sleep(120)
-stat()
+client = tweepy.Client( bearer_token=bearer_token, 
+                        consumer_key=consumer_key, 
+                        consumer_secret=consumer_secret, 
+                        access_token=access_token, 
+                        access_token_secret=access_token_secret, 
+                        return_type = requests.Response,
+                        wait_on_rate_limit=True)
+response = client.create_tweet(text = stat())
+# sleep to avoid running the function again in the next loop
+time.sleep(180)
+print (stat())
