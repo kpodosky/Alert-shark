@@ -8,45 +8,58 @@ from time import sleep
 from keys import *
 
 from tweepy import auth
-
-
+ 
+ 
 def btc():
-    url = "https://api.coinbase.com/v2/prices/spot?currency=USD"
+    url = "https://mempool.space/api/v1/prices"
 
     response = requests.get(url)
-    data = response.text
-    parsed = json.loads(data)
-    amount_data = parsed["data"]["amount"]
+    USD = response.text
+    parsed = json.loads(USD)
+    amount_data = parsed["USD"]
     bitcoin = float(amount_data)
     return bitcoin
+ 
+def get_crypto_prices():
+  """
+  Fetches current prices for cryptocurrencies from the CoinGecko API.
 
+  Returns:
+      list: A list of current prices for all cryptocurrencies in USD.
+  """
+  url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
+  response = requests.get(url)
+  data = response.json()
+
+  # Extract and print current prices
+  current_prices = []
+  for item in data:
+    current_prices.append(item["current_price"])
+  return(current_prices)
+# Call the function to get and print prices
+ 
 def eth():
-    url = "https://api.coinbase.com/v2/prices/ETH-USD/spot"
-    response = requests.get(url)
-    data = response.text
-    parsed = json.loads(data)
-    amount_data = parsed["data"]["amount"]
-    eth_price = float(amount_data)
-    return eth_price
-
+ eth_tuple = get_crypto_prices()
+ return(eth_tuple[1])                 
+ 
 bit_2017 = 100000.1 #19783.21
-bit_current = float(btc())
+bit_current = btc()
 num= bit_current/bit_2017*100
 
 def price_data():
    ratio = eth()/btc()
    ratioD = ("{0:.2f}".format(ratio))
-   return ratioD 
+   return ratioD
 
 
 
 """this would print out the value of the current bitcion price"""
 def checkpercent():
  if num <= 25 :
-  return '₿itcoin ∞ ↓\n\n'
+  return '#bitcoin ↓\n\n'
  elif num >= 25 : 
   return  '₿itcoin ∞ ↑\n\n' 
- elif num == 50 : 
+ elif num == 50 :
   return '₿itcoin ∞ \n\n'
  elif num >=50 :
   return  '₿itcoin ∞ ↑ \n\n'
@@ -56,14 +69,14 @@ def checkpercent():
 def bitcoinData ():
  if num <= 0 :
     return ("⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ 0%")
- elif num <= 1 :
+ elif num <= 1 : 
     return ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 1%")
  elif num <= 2 :
     return ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 2%")
  elif num <= 3 :
     return ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 3%")
  elif num <= 4 :
-    return ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 4%")
+    return ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 4%") 
  elif num <= 5 :
    return  ("⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜ 5%")
  elif num <= 6 :
@@ -155,7 +168,7 @@ def bitcoinData ():
  elif num <= 49 : 
     return ("⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜ 49%") 
  elif num <= 50 : 
-    return ("⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜ 50%") 
+    return ("⬛⬛⬛⬛🟥⬜⬜⬜⬜⬜ 50%") 
  elif num <= 51 : 
     return ("⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜ 51%") 
  elif num <= 52 : 
@@ -244,14 +257,14 @@ def bitcoinData ():
     return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 95%")
  elif num <= 96 : 
     return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 96%")
- elif num <= 97 : 
+ elif num <= 97 :
     return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 97%")
- elif num <= 98 : 
-    return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 98%")
+ elif num <= 98 :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 98%") 
  elif num <= 99 : 
     return ("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬜ 99%")
  elif num <= 100 : 
-    return (" ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛ 100%")
+    return (" ⬛⬛⬛⬛⬛⬛⬛⬛⬛🟥 100%")
  else:
     return ("⣿⣿⣿⣿⣿ broke my counter! just kidding. I will now recalibrate to the next ATH 1,000,000") 
 
@@ -273,3 +286,4 @@ response = client.create_tweet(text = stat())
 # sleep to avoid running the function again in the next loop
 time.sleep(180)
 print (stat())
+time.sleep(120)
