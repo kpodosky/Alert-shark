@@ -1,7 +1,7 @@
 Gunicorn==19.7.1
 chardet==3.0.4
 Idna==2.7
-certifi==2019.9.11
+certifi==2023.7.22
 tweepy==4.14.0
 flask==2.2.5
 apscheduler==3.6.3
