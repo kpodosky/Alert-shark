@@ -39,13 +39,22 @@ class TwitterBot:
         self.high_risk_entities = [
             'lazarus_group',
             'exchangex',
-            'stolen_funds'
+            'stolen_funds',
+            'silk_road'  # Added Silk Road identifier
+        ]
+        
+        # Add known Silk Road wallets
+        self.silk_road_wallets = [
+            '1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX',  # Known Silk Road wallet
+            'bc1qa5wkgaew2dkv56kfvj49j0av5nml45x9ek9hz6',  # Associated wallet
+            '1HQ3Go3ggs8pFnXuHVHRytPCq5fGG8Hbhx'  # Historical Silk Road wallet
         ]
         
         # Add priority alert thresholds
         self.alert_thresholds = {
-            'normal': 1000,  # Regular whale transfers (updated from 500)
-            'high_risk': 100  # Lower threshold for suspicious transfers
+            'normal': 1000,      # Regular whale transfers
+            'high_risk': 100,    # Suspicious transfers
+            'silk_road': 10      # Extra sensitive threshold for Silk Road wallets
         }
         
         # Add timeout settings
@@ -86,15 +95,6 @@ class TwitterBot:
             return True
         except Exception as e:
             self.logger.error(f"Failed to tweet: {e}")
-            return False
-
-    def check_price_update(self):
-        """Run and post price status from alert_pricebar.py"""
-        try:
-            status = btc_price_display()  # Using correct function name
-            if status:
-                self.logger.info("Price status generated successfully")
-                return status
             return None
         except Exception as e:
             self.logger.error(f"Error in price update: {e}")
@@ -107,8 +107,11 @@ class TwitterBot:
             
             if alerts:
                 for alert in alerts:
+                    # Check for Silk Road wallet activity
+                    if any(wallet in alert.lower() for wallet in self.silk_road_wallets):
+                        alert = "🚨 CRITICAL: SILK ROAD WALLET MOVEMENT 🚨\n" + alert
                     # High risk check
-                    if any(entity in alert.lower() for entity in self.high_risk_entities):
+                    elif any(entity in alert.lower() for entity in self.high_risk_entities):
                         alert = "🚨 URGENT ALERT 🚨\n" + alert
                     
                     # Post with delay between alerts
